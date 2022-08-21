@@ -2,14 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
+import { QueryClient, QueryClientProvider } from "react-query";
+
 // Pages
 import App from "./App";
 
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <CookiesProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </CookiesProvider>
+  <QueryClientProvider client={queryClient}>
+    <CookiesProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </CookiesProvider>
+  </QueryClientProvider>
 );

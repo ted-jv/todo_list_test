@@ -1,9 +1,7 @@
 import React from "react";
 
 const SignInPage = () => {
-  return <>
-
-  </>;
+  return <></>;
 };
 
 export default SignInPage;

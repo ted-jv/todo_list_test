@@ -1,11 +1,12 @@
+/* Package */
 import axios from "axios";
 
-/* 기본 api */
+// 기본 api
 export const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-/* token이 들어간 api */
+// token이 들어간 api
 export const apiToken = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });

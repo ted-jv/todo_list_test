@@ -1,15 +1,12 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+/* Package */
+import { Route, Routes } from "react-router-dom";
+
+/* Pages */
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
-
-//Components
 import TodoPage from "./pages/TodoPage";
 
 function App() {
-  const navigate = useNavigate();
-  // if (loginCheck) {
-  //   navigate("/todo");
-  // }
   return (
     <>
       <Routes>

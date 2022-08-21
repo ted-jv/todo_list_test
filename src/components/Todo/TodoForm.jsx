@@ -1,16 +1,14 @@
+/* Package */
 import React from "react";
-// Hooks
-import { useRef } from "react";
-import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
+
+/* Apis */
 import { apiToken } from "../../shared/apis/Apis";
+import Button from "../common/Button";
 
 const TodoForm = () => {
   const [todoData, setTodaData, setTodoValue] = useInput("");
-  const navigate = useNavigate();
-  const todoRef = useRef(null);
   const queryClient = useQueryClient();
   // console.log("렌더링 일어남");
   // console.log(todoData);
@@ -44,15 +42,13 @@ const TodoForm = () => {
         onChange={setTodaData}
         placeholder="할일을 추가해주세요."
       />
-      <button
+      <Button
         onClick={() => {
-          // handleClick();
           onPost();
-          // todoRef.current.focus();
         }}
       >
         추가하기
-      </button>
+      </Button>
     </>
   );
 };

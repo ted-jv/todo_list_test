@@ -1,10 +1,13 @@
+/* Package */
 import React from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
+
+/* Apis */
 import { api } from "../../shared/apis/Apis";
 
-// Components
+/* Components */
 import Button from "../common/Button";
 
 const SignInForm = () => {
@@ -28,20 +31,27 @@ const SignInForm = () => {
       localStorage.setItem("login-token", res.data.access_token);
       navigate("/todo");
     },
-    onError: () => {
-      alert("아이디 및 패스워드 다시 입력해주세요!");
+    onError: (res) => {
+      console.log(res);
+      if (res.response.data.statusCode == 404) {
+        alert("존재하지 않는 아이디입니다.");
+      } else {
+        alert("아이디 및 비밀번호를 다시 확인해주세요.");
+      }
     },
   });
   return (
     <>
       <form>
         <div>
-          Email:
+          <span>Email : </span>
           <input type="email" value={email} onChange={setEmail} />
+          <div>이메일 형식을 기입해주세요.</div>
         </div>
         <div>
-          Password:
+          <span>Password : </span>
           <input type="password" value={password} onChange={setpassword} />
+          <div>8자리 이상 기입해주세요.</div>
         </div>
         <Button onClick={onPost}>로그인</Button>
         <Button

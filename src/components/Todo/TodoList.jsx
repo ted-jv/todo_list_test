@@ -1,14 +1,15 @@
-import React, { memo, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+/* Package */
+import React, { memo } from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
+
+/* Apis */
 import { apiToken } from "../../shared/apis/Apis";
-import Button from "../common/Button";
+
+/* Components */
 import Todo from "./Todo";
 
 const TodoList = () => {
-  const [isEdit, setIsEdit] = useState(false);
-  const queryClient = useQueryClient();
-
   const getFecher = async () => {
     const response = await apiToken.get("/todos");
     return response.data;
@@ -21,10 +22,8 @@ const TodoList = () => {
     onError: () => {
       // console.log("데이터 get 실패!");
     },
-    // staleTime: 0,
-    // cacheTime: 0,
   });
-  console.log(todoData);
+  // console.log(todoData);
   return (
     <>
       <Container>
@@ -44,8 +43,8 @@ const TodoList = () => {
 };
 
 const Container = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 1000px;
+  height: 600px;
 `;
 
 export default memo(TodoList);

@@ -1,3 +1,4 @@
+/* Package */
 import React from "react";
 import styled from "styled-components";
 
@@ -6,13 +7,16 @@ const Button = ({ children, ...rest }) => {
 };
 
 const StyledButton = styled.button`
-  width: ${(props) => props.width || "100px"};
-  height: ${(props) => props.height || "30px"};
+  width: ${(props) => props.width || "170px"};
+  height: ${(props) => props.height || "40px"};
+  border: 1px solid;
   cursor: pointer;
+  background-color: white;
 
   &:disabled {
     cursor: not-allowed;
-    background-color: black;
+    border: 1px solid;
+    background-color: white;
   }
 `;
 

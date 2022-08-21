@@ -1,10 +1,13 @@
+/* Package */
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-
-// Components
 import useInput from "../../hooks/useInput";
+
+/* Apis */
 import { api } from "../../shared/apis/Apis";
+
+/* Components */
 import Button from "../common/Button";
 
 const SignUpForm = () => {
@@ -39,7 +42,7 @@ const SignUpForm = () => {
       navigate("/");
     },
     onError: () => {
-      alert("이미 존재하는 아이디 입니다.");
+      alert("이미 존재하는 이메일입니다.");
     },
   });
 
@@ -47,16 +50,17 @@ const SignUpForm = () => {
     <>
       <form onSubmit={onPost}>
         <div>
-          Email:
+          <span>Email : </span>
           <input
             type="email"
             value={email}
             onChange={setEmail}
             onKeyUp={onKeyUp}
           />
+          <div>이메일 형식을 기입해주세요.</div>
         </div>
         <div>
-          Password:
+          <span>Password : </span>
           <input
             type="password"
             value={password}
@@ -64,9 +68,13 @@ const SignUpForm = () => {
             onChange={setpassword}
             onKeyUp={onKeyUp}
           />
+          <div>8자리 이상 기입해주세요.</div>
         </div>
         <Button type="submit" disabled={isDisabled}>
           회원가입
+        </Button>
+        <Button type="button" onClick={() => navigate("/")}>
+          취소
         </Button>
       </form>
     </>

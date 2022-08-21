@@ -1,7 +1,12 @@
+/* Package */
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import useInput from "../../hooks/useInput";
+
+/* Apis */
 import { apiToken } from "../../shared/apis/Apis";
+
+/* Components */
 import Button from "../common/Button";
 
 const Todo = ({ id, todo, isCompleted }) => {
@@ -47,6 +52,8 @@ const Todo = ({ id, todo, isCompleted }) => {
           <>
             <input placeholder={todo} onChange={setTodoData}></input>
             <Button
+              width="100px"
+              height="30px"
               onClick={() => {
                 setIsEdit(!isEdit);
               }}
@@ -54,6 +61,8 @@ const Todo = ({ id, todo, isCompleted }) => {
               취소
             </Button>
             <Button
+              width="100px"
+              height="30px"
               onClick={() => {
                 onPut(id);
                 setIsEdit(!isEdit);
@@ -67,6 +76,8 @@ const Todo = ({ id, todo, isCompleted }) => {
             <span>{todo}</span>
             <span>{isCompleted ? " = 완료" : " = 진행중"}</span>
             <Button
+              width="100px"
+              height="30px"
               onClick={() => {
                 setIsEdit(!isEdit);
               }}
@@ -74,6 +85,8 @@ const Todo = ({ id, todo, isCompleted }) => {
               수정하기
             </Button>
             <Button
+              width="100px"
+              height="30px"
               onClick={() => {
                 // console.log(value.id);
                 // window.confirm("삭제하시겠습니까?");

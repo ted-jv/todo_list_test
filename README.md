@@ -1,7 +1,7 @@
 # 원티드 프리온보딩 사전 과제
 
 
-## 💻 [배포 Link](https://www.paper-daily.com/)
+## 💻 [배포 Link](http://tedjv.s3-website.ap-northeast-2.amazonaws.com/)
 
 
 ## 📖 과제 구현 항목

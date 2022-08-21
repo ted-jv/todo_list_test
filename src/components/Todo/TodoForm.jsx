@@ -28,11 +28,11 @@ const TodoForm = () => {
     onSuccess: (res) => {
       queryClient.invalidateQueries("todoData");
 
-      console.log("할일 추가 성공!", res);
+      // console.log("할 일 추가 성공!", res);
       setTodoValue("");
     },
     onError: () => {
-      alert("할일 추가 실패!");
+      alert("내용을 입력해주세요!");
     },
   });
   return (
@@ -40,9 +40,11 @@ const TodoForm = () => {
       <input
         value={todoData}
         onChange={setTodaData}
-        placeholder="할일을 추가해주세요."
+        placeholder="할 일을 추가해주세요."
       />
       <Button
+        width="100px"
+        height="30px"
         onClick={() => {
           onPost();
         }}

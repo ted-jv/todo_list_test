@@ -1,6 +1,7 @@
 /* Package */
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
+import styled from "styled-components";
 import useInput from "../../hooks/useInput";
 
 /* Apis */
@@ -9,11 +10,13 @@ import { apiToken } from "../../shared/apis/Apis";
 /* Components */
 import Button from "../common/Button";
 
-const Todo = ({ id, todo, isCompleted }) => {
+const Todo = ({ id, todo, isCompletedd }) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [todoData, setTodoData] = useInput("");
+  const [todoData, setTodoData, setTodoValue] = useInput(todo);
+  const [todoCheck, setIsCompleted] = useState(isCompletedd);
+  //   console.log(todoCheck);
   const queryClient = useQueryClient();
-
+  //   console.log(todoData);
   // UseMutation delete 함수
   const deleteFecher = async (todoId) => {
     const response = await apiToken.delete(`/todos/${todoId}`);
@@ -31,7 +34,7 @@ const Todo = ({ id, todo, isCompleted }) => {
   const putFecher = async (todoId) => {
     const response = await apiToken.put(`/todos/${todoId}`, {
       todo: todoData,
-      isCompleted: isCompleted,
+      isCompleted: todoCheck,
     });
   };
   // UseMutation write 데이터 put
@@ -47,10 +50,14 @@ const Todo = ({ id, todo, isCompleted }) => {
 
   return (
     <>
-      <div>
+      <Container>
         {isEdit ? (
           <>
-            <input placeholder={todo} onChange={setTodoData}></input>
+            <input
+              placeholder={todoData}
+              value={todoData}
+              onChange={setTodoData}
+            ></input>
             <Button
               width="100px"
               height="30px"
@@ -72,34 +79,60 @@ const Todo = ({ id, todo, isCompleted }) => {
             </Button>
           </>
         ) : (
-          <>
-            <span>{todo}</span>
-            <span>{isCompleted ? " = 완료" : " = 진행중"}</span>
-            <Button
-              width="100px"
-              height="30px"
-              onClick={() => {
-                setIsEdit(!isEdit);
-              }}
-            >
-              수정하기
-            </Button>
-            <Button
-              width="100px"
-              height="30px"
-              onClick={() => {
-                // console.log(value.id);
-                // window.confirm("삭제하시겠습니까?");
-                onDelete(id);
-              }}
-            >
-              삭제하기
-            </Button>
-          </>
+          <TodoWrap>
+            <div>
+              <span>{todo}</span>
+            </div>
+            <div>
+              <Button
+                width="100px"
+                height="30px"
+                onClick={() => {
+                  setIsCompleted(!todoCheck);
+                  setTodoValue(todo);
+                  onPut(id);
+                }}
+              >
+                {todoCheck ? "할 일 완료" : "할 일 진행중"}
+              </Button>
+              <Button
+                width="100px"
+                height="30px"
+                onClick={() => {
+                  setIsEdit(!isEdit);
+                }}
+              >
+                수정하기
+              </Button>
+              <Button
+                width="100px"
+                height="30px"
+                onClick={() => {
+                  // console.log(value.id);
+                  if (window.confirm("삭제하시겠습니까?")) {
+                    onDelete(id);
+                  } else {
+                    return;
+                  }
+                }}
+              >
+                삭제하기
+              </Button>
+            </div>
+          </TodoWrap>
         )}
-      </div>
+      </Container>
     </>
   );
 };
 
+const Container = styled.div`
+  height: 50px;
+`;
+
+const TodoWrap = styled.div`
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
+`;
 export default Todo;

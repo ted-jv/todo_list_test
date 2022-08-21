@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import TodoPage from "./pages/TodoPage";
+import IsLogin from "./shared/Auth";
 
 function App() {
   return (

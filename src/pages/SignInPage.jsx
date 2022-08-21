@@ -1,5 +1,5 @@
 /* Package */
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -10,9 +10,11 @@ const SignInPage = () => {
   const loginCheck = localStorage.getItem("login-token");
   const navigate = useNavigate();
   // console.log("loginCheck", loginCheck);
-  if (loginCheck) {
-    navigate("/todo");
-  }
+  useEffect(() => {
+    if (localStorage.getItem("login-token")) {
+      navigate("/todo");
+    }
+  }, []);
   return (
     <>
       <Title>로그인</Title>

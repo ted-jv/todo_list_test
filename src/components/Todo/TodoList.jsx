@@ -33,7 +33,7 @@ const TodoList = () => {
               key={value.id}
               id={value.id}
               todo={value.todo}
-              isCompleted={value.isCompleted}
+              isCompletedd={value.isCompleted}
             />
           );
         })}
@@ -44,7 +44,7 @@ const TodoList = () => {
 
 const Container = styled.div`
   width: 1000px;
-  height: 600px;
+  min-height: 700px;
 `;
 
 export default memo(TodoList);

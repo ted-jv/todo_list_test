@@ -1,15 +1,20 @@
-import React, { memo } from "react";
-import { useQuery } from "react-query";
+import React, { memo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { apiToken } from "../../shared/apis/Apis";
+import Button from "../common/Button";
+import Todo from "./Todo";
 
 const TodoList = () => {
-  const getfecher = async () => {
+  const [isEdit, setIsEdit] = useState(false);
+  const queryClient = useQueryClient();
+
+  const getFecher = async () => {
     const response = await apiToken.get("/todos");
     return response.data;
   };
 
-  const { data: todoData } = useQuery("todoData", getfecher, {
+  const { data: todoData } = useQuery("todoData", getFecher, {
     onSuccess: (res) => {
       // console.log("데이터 get 성공!", res);
     },
@@ -24,7 +29,14 @@ const TodoList = () => {
     <>
       <Container>
         {todoData?.map((value) => {
-          return <div key={value.id}>{value.todo}</div>;
+          return (
+            <Todo
+              key={value.id}
+              id={value.id}
+              todo={value.todo}
+              isCompleted={value.isCompleted}
+            />
+          );
         })}
       </Container>
     </>

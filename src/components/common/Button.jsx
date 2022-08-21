@@ -6,8 +6,8 @@ const Button = ({ children, ...rest }) => {
 };
 
 const StyledButton = styled.button`
-  width: ${(props) => props.width || "150px"};
-  height: ${(props) => props.height || "50px"};
+  width: ${(props) => props.width || "100px"};
+  height: ${(props) => props.height || "30px"};
   cursor: pointer;
 
   &:disabled {

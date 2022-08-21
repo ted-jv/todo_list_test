@@ -14,11 +14,6 @@ const SignUpForm = () => {
   const navigate = useNavigate();
   //   console.log(email);
   //   console.log(password);
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setEmailValue("");
-    setPasswordValue("");
-  };
   const onKeyUp = () => {
     if (email.includes("@") && password.length >= 8) {
       setIsDisabled(false);
@@ -26,10 +21,13 @@ const SignUpForm = () => {
       setIsDisabled(true);
     }
   };
-  const postfecher = async () => {
+  const postfecher = async (e) => {
+    e.preventDefault();
+    setEmailValue("");
+    setPasswordValue("");
     const response = await api.post("/auth/signup", {
-      email: email,
-      password: password,
+      email,
+      password,
     });
     return response;
     // console.log(response);
@@ -37,6 +35,7 @@ const SignUpForm = () => {
 
   const { mutate: onPost } = useMutation(postfecher, {
     onSuccess: () => {
+      alert("회원가입 성공");
       navigate("/");
     },
     onError: () => {
@@ -46,7 +45,7 @@ const SignUpForm = () => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onPost}>
         <div>
           Email:
           <input
@@ -66,7 +65,7 @@ const SignUpForm = () => {
             onKeyUp={onKeyUp}
           />
         </div>
-        <Button type="submit" disabled={isDisabled} onClick={onPost}>
+        <Button type="submit" disabled={isDisabled}>
           회원가입
         </Button>
       </form>

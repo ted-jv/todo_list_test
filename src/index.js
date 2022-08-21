@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { CookiesProvider } from "react-cookie";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 // Pages
@@ -11,10 +10,8 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <QueryClientProvider client={queryClient}>
-    <CookiesProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </CookiesProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </QueryClientProvider>
 );

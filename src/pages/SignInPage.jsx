@@ -7,9 +7,7 @@ import styled from "styled-components";
 import SignInForm from "../components/signIn/SignInForm";
 
 const SignInPage = () => {
-  const loginCheck = localStorage.getItem("login-token");
   const navigate = useNavigate();
-  // console.log("loginCheck", loginCheck);
   useEffect(() => {
     if (localStorage.getItem("login-token")) {
       navigate("/todo");

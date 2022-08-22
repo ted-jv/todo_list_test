@@ -1,5 +1,5 @@
 /* Package */
-import React, { memo } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 
@@ -47,4 +47,4 @@ const Container = styled.div`
   min-height: 700px;
 `;
 
-export default memo(TodoList);
+export default TodoList;

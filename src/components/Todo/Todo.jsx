@@ -14,16 +14,12 @@ const Todo = ({ id, todo, isCompletedd }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [todoData, setTodoData, setTodoValue] = useInput(todo);
   const [todoCheck, setIsCompleted] = useState(isCompletedd);
-  //   console.log(todoCheck);
   const queryClient = useQueryClient();
-  //   console.log(todoData);
-  // UseMutation delete 함수
+  // UseMutation delete
   const deleteFecher = async (todoId) => {
     const response = await apiToken.delete(`/todos/${todoId}`);
-    // return response?.data;
   };
 
-  // UseMutation delete
   const { mutate: onDelete } = useMutation(deleteFecher, {
     onSuccess: () => {
       alert("삭제 완료!");
@@ -31,13 +27,36 @@ const Todo = ({ id, todo, isCompletedd }) => {
     },
   });
 
-  const putFecher = async (todoId) => {
-    const response = await apiToken.put(`/todos/${todoId}`, {
+  const handleTodoCheck = () => {
+    setTodoValue(todo);
+    onPutTodoCheck();
+  };
+
+  // UseMutation TodoChange put
+  const putTodoCheckFecher = async () => {
+    const response = await apiToken.put(`/todos/${id}`, {
       todo: todoData,
-      isCompleted: todoCheck,
+      isCompleted: !todoCheck,
     });
   };
-  // UseMutation write 데이터 put
+  const { mutate: onPutTodoCheck } = useMutation(putTodoCheckFecher, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("todoData");
+      setIsCompleted(!todoCheck);
+      alert("수정 완료!");
+    },
+    onError: (err) => {
+      alert("수정 실패!");
+    },
+  });
+
+  // UseMutation put
+  const putFecher = async () => {
+    const response = await apiToken.put(`/todos/${id}`, {
+      todo: todoData,
+      isCompleted: isCompletedd,
+    });
+  };
   const { mutate: onPut } = useMutation(putFecher, {
     onSuccess: () => {
       queryClient.invalidateQueries("todoData");
@@ -84,15 +103,7 @@ const Todo = ({ id, todo, isCompletedd }) => {
               <span>{todo}</span>
             </div>
             <div>
-              <Button
-                width="100px"
-                height="30px"
-                onClick={() => {
-                  setIsCompleted(!todoCheck);
-                  setTodoValue(todo);
-                  onPut(id);
-                }}
-              >
+              <Button width="100px" height="30px" onClick={handleTodoCheck}>
                 {todoCheck ? "할 일 완료" : "할 일 진행중"}
               </Button>
               <Button
@@ -108,7 +119,6 @@ const Todo = ({ id, todo, isCompletedd }) => {
                 width="100px"
                 height="30px"
                 onClick={() => {
-                  // console.log(value.id);
                   if (window.confirm("삭제하시겠습니까?")) {
                     onDelete(id);
                   } else {
